@@ -22,6 +22,10 @@ module KiwiScraper
       @course_url ||= get_course_url
     end
 
+    def courses_name_to_url_mapping
+      @course_map ||= get_course
+    end
+
     private
 
     def get_course_name
@@ -37,6 +41,27 @@ module KiwiScraper
       @document.xpath('//div[@onclick]').each do |course|
         result << course.attributes[2].value.split("'")[1]
       end
+      result
+    end
+
+    def get_course
+      name = []
+      @document.xpath("//h4[@id='courseName']").each do |course|
+        name << course.text
+      end
+
+      url = []
+      @document.xpath('//div[@onclick]').each do |course|
+        url << course.attributes[2].value.split("'")[1]
+      end
+
+      key = ['course_name', 'course_url']
+      result = []
+      name.each_index do |index|
+        element = Hash[key.zip [name[index], url[index]]]
+        result << element
+      end
+
       result
     end
   end
