@@ -1,33 +1,29 @@
 #!/usr/bin/env ruby
-require "readline"
-require '../lib/coursesdesc/courses.rb' 
+require 'readline'
+require '../lib/coursesdesc/courses.rb'
 
-                            
-
-puts "    _________        _______   ____"
-puts "   / __/ ___/ ____  / ___/ /  /  _/"
-puts "  _\\ \\/ /__  /___/ / /__/ /___/ /  "
-puts " /___/\\___/        \\___/____/___/  "
-                                 
-puts ""
+puts '    _________        _______   ____'
+puts '   / __/ ___/ ____  / ___/ /  /  _/'
+puts '  _\\ \\/ /__  /___/ / /__/ /___/ /  '
+puts ' /___/\\___/        \\___/____/___/  '
+puts ''
 
 sc = KiwiScraper::ShareCourse.new
 
-while buf = Readline.readline("> ", true)
+while buf = Readline.readline('> ', true)
   if buf == 'courses'
-     course_found = sc.course_name
-		 course_found.each do |ele_courses|
-		   puts ele_courses
-		 end
+    course_found = sc.course_name
+    course_found.each do |ele_courses|
+      puts ele_courses
+    end
   elsif buf == 'url'
-     url_found = sc.course_url
-		 url_found.each do |ele_urls|
-		   puts ele_urls
-		 end
+    url_found = sc.course_url
+    url_found.each do |ele_urls|
+      puts ele_urls
+    end
   elsif buf == 'test'
-     puts 'testing'
+    puts 'testing'
   else
-    puts "Command not found!"
+    puts 'Command not found!'
   end
 end
-
