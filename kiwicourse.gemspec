@@ -18,4 +18,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'webmock'
   s.add_runtime_dependency 'oga'
+  s.add_runtime_dependency 'thor'
+  s.add_runtime_dependency 'fuzzy_match'
+  s.add_runtime_dependency 'launchy'
 end
