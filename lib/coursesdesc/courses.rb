@@ -1,5 +1,6 @@
 require 'oga'
 require 'open-uri'
+require 'digest'
 
 module KiwiScraper
   # parse course description from sharecourse web
@@ -50,17 +51,17 @@ module KiwiScraper
         name << course.text
       end
 
+      hash_name = []
+      name.each_index do |index|
+        hash_name[index] = Digest::SHA256.digest name[index]
+      end
+
       url = []
       @document.xpath('//div[@onclick]').each do |course|
         url << course.attributes[2].value.split("'")[1]
       end
 
-      key = ['course_name', 'course_url']
-      result = []
-      name.each_index do |index|
-        element = Hash[key.zip [name[index], url[index]]]
-        result << element
-      end
+      result = Hash[hash_name.zip(url)]
 
       result
     end
