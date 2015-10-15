@@ -1,5 +1,8 @@
 # kiwi-scraper
 
+[![Build Status](https://travis-ci.org/Kiwi-Learn/kiwi-scraper.svg?branch=master)](https://travis-ci.org/Kiwi-Learn/kiwi-scraper)
+
+
 Kiwi Scraper is a great tool to get [Sharecourse](http://sharecourse.net/sharecourse/general/home/) description!
 
 We respect Sharecourse's `robots.txt`
