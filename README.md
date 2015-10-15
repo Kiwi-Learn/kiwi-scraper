@@ -1,7 +1,6 @@
 # kiwi-scraper
 
 [![Build Status](https://travis-ci.org/Kiwi-Learn/kiwi-scraper.svg?branch=master)](https://travis-ci.org/Kiwi-Learn/kiwi-scraper)
-
 [![Gem Version](https://badge.fury.io/rb/kiwicourse.svg)](https://badge.fury.io/rb/kiwicourse)
 
 Kiwi Scraper is a great tool to get [Sharecourse](http://sharecourse.net/sharecourse/general/home/) description!
@@ -12,12 +11,12 @@ We respect Sharecourse's `robots.txt`
 
 Install it with the following command:
 ```sh
-$ bundle install
+$ gem install kiwicourse
 ```
 
 Run it from the command line.
 ```sh
-$ ./bin/coursesdesc
+$ coursesdesc
 ```
 
 Screenshots
@@ -33,7 +32,7 @@ Screenshots
 
 Use it from your Ruby code:
 ````ruby
-require './lib/coursesdesc/courses.rb'
+require 'kiwicourse'
 sc = KiwiScraper::ShareCourse.new
 
 course_found = sc.course_name
