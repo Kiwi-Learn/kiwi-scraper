@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require 'readline'
-require '../lib/coursesdesc/courses.rb'
+require 'coursesdesc' # for production
+
+# require '../lib/coursesdesc/courses.rb' # for cmd line testing purposes
 
 puts '    _________        _______   ____'
 puts '   / __/ ___/ ____  / ___/ /  /  _/'
