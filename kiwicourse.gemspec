@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name = 'kiwicourse'
   s.version = CoursesDesc::VERSION
   s.date = CoursesDesc::DATE
-  s.executables << 'coursesdesc'
+  s.executables << 'kiwicourse'
   s.summary = 'Course outline of Sharecourese'
   s.description = 'Get course name and url list from Sharecourese of NTHU.'
   s.authors = ['John Lin', 'Robert Chang', 'Vicky Lee', 'Sam Cheng']
