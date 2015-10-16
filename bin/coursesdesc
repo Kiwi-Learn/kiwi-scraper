@@ -1,31 +1,35 @@
 #!/usr/bin/env ruby
-require 'readline'
+require 'digest'
+require 'thor'
+require 'fuzzy_match'
+require 'launchy'
 require 'coursesdesc' # for production
-
 # require '../lib/coursesdesc/courses.rb' # for cmd line testing purposes
 
-puts '    _________        _______   ____'
-puts '   / __/ ___/ ____  / ___/ /  /  _/'
-puts '  _\\ \\/ /__  /___/ / /__/ /___/ /  '
-puts ' /___/\\___/        \\___/____/___/  '
-puts ''
+class KiwiCLI < Thor
+  desc 'search COURSENAME', 'Search a course on ShareCourse'
+  def search(coursename)
+    sc = KiwiScraper::ShareCourse.new
+    result = FuzzyMatch.new(sc.course_name).find(coursename)
+    puts result
+  end
 
-sc = KiwiScraper::ShareCourse.new
-
-while buf = Readline.readline('> ', true)
-  if buf == 'courses'
-    course_found = sc.course_name
-    course_found.each do |ele_courses|
+  desc 'list', 'List all courses on ShareCourse'
+  def list
+    sc = KiwiScraper::ShareCourse.new
+    sc.course_name.each do |ele_courses|
       puts ele_courses
     end
-  elsif buf == 'url'
-    url_found = sc.course_url
-    url_found.each do |ele_urls|
-      puts ele_urls
-    end
-  elsif buf == 'test'
-    puts 'testing'
-  else
-    puts 'Command not found!'
+  end
+
+  desc 'open COURSENAME', 'open the course page on browser'
+  def open(coursename)
+    sc = KiwiScraper::ShareCourse.new
+    # puts sc.courses_name_to_url_mapping
+    input_key = Digest::SHA256.digest coursename
+    course_url = sc.courses_name_to_url_mapping[input_key]
+    Launchy.open(course_url)
   end
 end
+
+KiwiCLI.start(ARGV)
