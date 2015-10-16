@@ -15,20 +15,18 @@ $ gem install kiwicourse
 ```
 
 Run it from the command line.
+
+Search a course with a keyword
 ```sh
-$ coursesdesc
+$ coursesdesc search cellular
+2015 細胞神經科學Cellular Neuroscience
 ```
 
-Screenshots
-
+Open the course url in browser
 ```sh
-    _________        _______   ____
-   / __/ ___/ ____  / ___/ /  /  _/
-  _\ \/ /__  /___/ / /__/ /___/ /  
- /___/\___/        \___/____/___/  
-
-> courses
+$ coursesdesc open 科學計算
 ```
+
 
 Use it from your Ruby code:
 ````ruby
