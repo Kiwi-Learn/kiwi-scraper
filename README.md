@@ -18,13 +18,13 @@ Run it from the command line.
 
 Search a course with a keyword
 ```sh
-$ coursesdesc search cellular
+$ kiwicourse search cellular
 2015 細胞神經科學Cellular Neuroscience
 ```
 
 Open the course url in browser
 ```sh
-$ coursesdesc open 科學計算
+$ kiwicourse open 科學計算
 ```
 
 
