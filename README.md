@@ -41,9 +41,10 @@ puts url_found
 
 ````
 
-## Test
+## Run the tests
+
+Using [rake](http://docs.seattlerb.org/rake/) to run tests. If you don't have rake using `gem install rake` to install it.
 
 ```sh
-$ cd spec
-$ ruby coursesdesc_spec.rb
+$ rake spec
 ```
