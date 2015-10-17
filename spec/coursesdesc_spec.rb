@@ -26,5 +26,8 @@ VCR.use_cassette('courses') do
       courses_dates = sc.course_date
       courses_dates.sort.must_equal COURSES_DATE.sort
     end
+    it 'should return an array include courses ID' do
+      # Write your test here
+    end
   end
 end
