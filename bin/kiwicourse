@@ -4,12 +4,19 @@ require 'thor'
 require 'fuzzy_match'
 require 'launchy'
 require 'coursesdesc' # for production
-require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
+# require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
+
+DUMP_FILE_PATH = Dir.home + '/.kiwicourse.dump'
 
 class KiwiCLI < Thor
   desc 'search COURSENAME', 'Search a course on ShareCourse'
   def search(coursename)
-    sc = KiwiScraper::ShareCourse.new
+    if File.exist?(DUMP_FILE_PATH)
+      sc = Marshal.load(File.read(DUMP_FILE_PATH))
+    else
+      sc = KiwiScraper::ShareCourse.new
+      File.open(DUMP_FILE_PATH, 'w') { |f| f.write(Marshal.dump(sc)) }
+    end
     result = FuzzyMatch.new(sc.course_name).find(coursename)
     input_key = Digest::SHA256.digest result
     id = sc.courses_name_to_id_mapping[input_key]
@@ -18,27 +25,49 @@ class KiwiCLI < Thor
 
   desc 'list', 'List all courses on ShareCourse'
   def list
-    sc = KiwiScraper::ShareCourse.new
+    if File.exist?(DUMP_FILE_PATH)
+      sc = Marshal.load(File.read(DUMP_FILE_PATH))
+    else
+      sc = KiwiScraper::ShareCourse.new
+      File.open(DUMP_FILE_PATH, 'w') { |f| f.write(Marshal.dump(sc)) }
+    end
     sc.courses_id_to_all_mapping.each do |key, info|
       puts "#{key} - #{info['name']}"
     end
   end
 
-  desc 'open ID', 'open the course page on browser with course id'
+  desc 'open ID', 'Open the course page on browser with course id'
   def open(id)
-    sc = KiwiScraper::ShareCourse.new
+    if File.exist?(DUMP_FILE_PATH)
+      sc = Marshal.load(File.read(DUMP_FILE_PATH))
+    else
+      sc = KiwiScraper::ShareCourse.new
+      File.open(DUMP_FILE_PATH, 'w') { |f| f.write(Marshal.dump(sc)) }
+    end
     course = sc.courses_id_to_all_mapping[id]
     Launchy.open(course['url'])
   end
 
   desc 'info ID', 'Display information about course.'
   def info(id)
-    sc = KiwiScraper::ShareCourse.new
+    if File.exist?(DUMP_FILE_PATH)
+      sc = Marshal.load(File.read(DUMP_FILE_PATH))
+    else
+      sc = KiwiScraper::ShareCourse.new
+      File.open(DUMP_FILE_PATH, 'w') { |f| f.write(Marshal.dump(sc)) }
+    end
     course = sc.courses_id_to_all_mapping[id]
     puts "Course ID: #{course['id']}"
     puts "Course: #{course['name']}"
     puts "Course time: #{course['date']}"
     puts "Course webpage#{course['url']}"
+  end
+
+  desc 'update', 'Update the offline courses data'
+  def update
+    sc = KiwiScraper::ShareCourse.new
+    File.open(DUMP_FILE_PATH, 'w') { |f| f.write(Marshal.dump(sc)) }
+    puts 'Already up to date.'
   end
 end
 
