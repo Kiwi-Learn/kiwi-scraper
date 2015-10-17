@@ -5,6 +5,7 @@ require './lib/coursesdesc.rb'
 require './spec/courses_name_test_data.rb'
 require './spec/urls_test_data.rb'
 require './spec/courses_date_data.rb'
+require './spec/courses_id_test_data.rb'
 
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
@@ -27,7 +28,9 @@ VCR.use_cassette('courses') do
       courses_dates.sort.must_equal COURSES_DATE.sort
     end
     it 'should return an array include courses ID' do
-      # Write your test here
+      course_ids = sc.course_id
+      # course_id.must_equl COURSES_ID
+      course_ids.must_equal COURSES_ID
     end
   end
 end
