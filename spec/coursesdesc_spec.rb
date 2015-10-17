@@ -21,16 +21,15 @@ VCR.use_cassette('courses') do
     end
     it 'should return an array include url' do
       courses_urls = sc.course_url
-      courses_urls.sort.must_equal URLS_LIST.sort
+      courses_urls.sort.must_equal COURSES_URLS_LIST.sort
     end
     it 'should return an array include date' do
       courses_dates = sc.course_date
-      courses_dates.sort.must_equal COURSES_DATE.sort
+      courses_dates.sort.must_equal COURSES_DATE_LIST.sort
     end
     it 'should return an array include courses ID' do
       course_ids = sc.course_id
-      # course_id.must_equl COURSES_ID
-      course_ids.must_equal COURSES_ID
+      course_ids.must_equal COURSES_ID_LIST
     end
   end
 end
