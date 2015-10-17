@@ -1,6 +1,7 @@
 require 'oga'
 require 'open-uri'
 require 'digest'
+require 'pp'
 
 module KiwiScraper
   # parse course description from sharecourse web
@@ -18,19 +19,25 @@ module KiwiScraper
     def course_name
       @course_name ||= parse_course_name
     end
+
     def course_date
       @course_date ||= get_course_date
     end
+
     def course_url
       @course_url ||= parse_course_url
     end
 
-    def courses_name_to_url_mapping
-      @course_map ||= parse_course
+    def courses_name_to_id_mapping
+      @course_map ||= make_course_name_to_id_map
     end
 
     def course_id
       @course_id ||= parse_course_id
+    end
+
+    def courses_id_mapping
+      @course_id_map ||= map_course_id
     end
 
     private
@@ -51,25 +58,37 @@ module KiwiScraper
       result
     end
 
-    def parse_course
-      name = []
-      @document.xpath("//h4[@id='courseName']").each do |course|
-        name << course.text
-      end
+    def make_course_name_to_id_map
+      name = parse_course_name
+      course_id = parse_course_id
 
       hash_name = []
       name.each_index do |index|
         hash_name[index] = Digest::SHA256.digest name[index]
       end
 
-      url = []
-      @document.xpath('//div[@onclick]').each do |course|
-        url << course.attributes[2].value.split("'")[1]
-      end
-
-      result = Hash[hash_name.zip(url)]
+      result = Hash[hash_name.zip(course_id)]
 
       result
+    end
+
+    def map_course_id
+      name = parse_course_name
+      course_id = parse_course_id
+      date = get_course_date
+      url = parse_course_url
+      info = {}
+
+      # This iterate can replace by using zip function
+      course_id.each_index do |index|
+        info[course_id[index]] = {
+          'name' => name[index],
+          'date' => date[index],
+          'url' => url[index],
+          'id' => course_id[index]
+        }
+      end
+      info
     end
 
     def get_course_date
