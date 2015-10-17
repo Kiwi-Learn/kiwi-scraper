@@ -3,8 +3,8 @@ require 'digest'
 require 'thor'
 require 'fuzzy_match'
 require 'launchy'
-# require 'coursesdesc' # for production
-require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
+require 'coursesdesc' # for production
+# require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
 
 DUMP_FILE_PATH = Dir.home + '/.kiwicourse.dump'
 
@@ -36,7 +36,7 @@ class KiwiCLI < Thor
     end
   end
 
-  desc 'open ID', 'open the course page on browser with course id'
+  desc 'open ID', 'Open the course page on browser with course id'
   def open(id)
     if File.exist?(DUMP_FILE_PATH)
       sc = Marshal.load(File.read(DUMP_FILE_PATH))
