@@ -69,6 +69,7 @@ module KiwiScraper
     end
 
     def get_course_date
+      #date type yyyy-mm-dd - yyyy-mm-dd
       date = [] 
       @document.xpath("//p[@id='courseDate']").each do |course|
         longdate = course.text
