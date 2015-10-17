@@ -14,23 +14,53 @@ Install it with the following command:
 $ gem install kiwicourse
 ```
 
-Run it from the command line.
+Run it from the command line. We provide 4 features to you to browse courses information on  [Sharecourse](http://sharecourse.net/sharecourse/general/home/).
+
+- list
+- search
+- info
+- open
+
+
+Help
+```sh
+$ kiwicourse
+Commands:
+  kiwicourse help [COMMAND]     # Describe available commands or one specific command
+  kiwicourse info ID            # Display information about course.
+  kiwicourse list               # List all courses on ShareCourse
+  kiwicourse open ID            # open the course page on browser with course id
+  kiwicourse search COURSENAME  # Search a course on ShareCourse
+```
+
+List all courses on [Sharecourse](http://sharecourse.net/sharecourse/general/home/)
+```sh
+$ kiwicourse list
+MA02004 - 會計學原理
+AO35004 - 行動磨課師【曠世名琴訴說的故事】
+DM91002 - 方法對了，人人都可以是設計師
+
+...
+
+CS01001 - 網路安全 Network Security
+CS01002 - 作業系統 Operating Systems
+EE62002 - 小型風力機系統與國際認證 (104 秋季班)
+```
 
 Search a course with a keyword
 ```sh
-$ kiwicourse search cellular
-2015 細胞神經科學Cellular Neuroscience
+$ kiwicourse search 會計
+MA02004 - 會計學原理
 ```
 
-Open the course url in browser
+Open the course webpage in browser
 ```sh
-$ kiwicourse open 科學計算
+$ kiwicourse open MA02004
 ```
-
 
 Use it from your Ruby code:
 ````ruby
-require 'kiwicourse'
+require 'coursesdesc'
 sc = KiwiScraper::ShareCourse.new
 
 course_found = sc.course_name
