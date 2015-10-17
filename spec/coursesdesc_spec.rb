@@ -2,10 +2,10 @@ require 'minitest/autorun'
 require 'vcr'
 require 'webmock/minitest'
 require './lib/coursesdesc.rb'
-require './spec/courses_name_test_data.rb'
-require './spec/urls_test_data.rb'
+require './spec/courses_id_data.rb'
+require './spec/courses_name_data.rb'
+require './spec/courses_url_data.rb'
 require './spec/courses_date_data.rb'
-require './spec/courses_id_test_data.rb'
 
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
