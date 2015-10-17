@@ -85,7 +85,7 @@ module KiwiScraper
     def parse_course_id
       course_id = []
       @document.xpath("//div[@class='gb_mid']").each do |course|
-        course_id << course.children[4].children[0].children.text
+        course_id << course.children[4].children[0].children.text.split("：")[1]
       end
       course_id
     end
