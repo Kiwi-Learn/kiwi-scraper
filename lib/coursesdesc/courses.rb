@@ -74,7 +74,6 @@ module KiwiScraper
         longdate = course.text
         date << longdate.split("：")[1]
       end
-      File.write("dateoutput", date)
       date
     end
 
