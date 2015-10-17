@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/Kiwi-Learn/kiwi-scraper.svg?branch=master)](https://travis-ci.org/Kiwi-Learn/kiwi-scraper)
 [![Gem Version](https://badge.fury.io/rb/kiwicourse.svg)](https://badge.fury.io/rb/kiwicourse)
 
-Kiwi Scraper is a great tool to get [Sharecourse](http://sharecourse.net/sharecourse/general/home/) description!
+Kiwi Scraper is a great tool to get [Sharecourse](http://sharecourse.net/sharecourse/general/home/) information!
+
+Yes, you can use CLI to browse course information even you are **offline**!!
 
 We respect Sharecourse's `robots.txt`
 
@@ -14,12 +16,13 @@ Install it with the following command:
 $ gem install kiwicourse
 ```
 
-Run it from the command line. We provide 4 features to you to browse courses information on  [Sharecourse](http://sharecourse.net/sharecourse/general/home/).
+Run it from the command line. We provide 5 features to you to browse courses information on  [Sharecourse](http://sharecourse.net/sharecourse/general/home/).
 
 - list
 - search
 - info
 - open
+- update
 
 
 Help
@@ -29,9 +32,11 @@ Commands:
   kiwicourse help [COMMAND]     # Describe available commands or one specific command
   kiwicourse info ID            # Display information about course.
   kiwicourse list               # List all courses on ShareCourse
-  kiwicourse open ID            # open the course page on browser with course id
+  kiwicourse open ID            # Open the course page on browser with course id
   kiwicourse search COURSENAME  # Search a course on ShareCourse
+  kiwicourse update             # Update the offline courses data
 ```
+
 
 List all courses on [Sharecourse](http://sharecourse.net/sharecourse/general/home/)
 ```sh
@@ -53,9 +58,25 @@ $ kiwicourse search 會計
 MA02004 - 會計學原理
 ```
 
+Display information about the course.
+
+```sh
+$ kiwicourse info CS06001
+Course ID: CS06001
+Course: 資料結構
+Course time: 2014-09-14 - 2015-02-28
+Course webpagehttp://www.sharecourse.net/sharecourse/course/view/courseInfo/28
+```
+
 Open the course webpage in browser
 ```sh
 $ kiwicourse open MA02004
+```
+
+Update the offline courses data
+```sh
+$ kiwicourse update
+Already up to date.
 ```
 
 Use it from your Ruby code:
