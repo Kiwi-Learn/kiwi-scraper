@@ -9,11 +9,7 @@ module KiwiScraper
     URL = 'http://www.sharecourse.net/sharecourse/course/view/courseList'
 
     def initialize
-      get_html
-    end
-
-    def get_html
-      @document = Oga.parse_html(open(URL))
+      parse_html
     end
 
     def course_name
@@ -21,7 +17,7 @@ module KiwiScraper
     end
 
     def course_date
-      @course_date ||= get_course_date
+      @course_date ||= parse_course_date
     end
 
     def course_url
@@ -29,18 +25,30 @@ module KiwiScraper
     end
 
     def courses_name_to_id_mapping
-      @course_map ||= make_course_name_to_id_map
+      @course_map ||= map_course_name_to_id
     end
 
     def course_id
       @course_id ||= parse_course_id
     end
 
-    def courses_id_mapping
-      @course_id_map ||= map_course_id
+    def courses_id_to_all_mapping
+      @course_id_map ||= map_course_id_to_all
     end
 
     private
+
+    def parse_html
+      @document = Oga.parse_html(open(URL))
+    end
+
+    def parse_course_id
+      course_id = []
+      @document.xpath("//div[@class='gb_mid']").each do |course|
+        course_id << course.children[4].children[0].children.text.split('：')[1]
+      end
+      course_id
+    end
 
     def parse_course_name
       result = []
@@ -58,7 +66,17 @@ module KiwiScraper
       result
     end
 
-    def make_course_name_to_id_map
+    def parse_course_date
+      # date type yyyy-mm-dd - yyyy-mm-dd
+      date = []
+      @document.xpath("//p[@id='courseDate']").each do |course|
+        longdate = course.text
+        date << longdate.split('：')[1]
+      end
+      date
+    end
+
+    def map_course_name_to_id
       name = parse_course_name
       course_id = parse_course_id
 
@@ -67,15 +85,13 @@ module KiwiScraper
         hash_name[index] = Digest::SHA256.digest name[index]
       end
 
-      result = Hash[hash_name.zip(course_id)]
-
-      result
+      Hash[hash_name.zip(course_id)] # return value
     end
 
-    def map_course_id
+    def map_course_id_to_all
       name = parse_course_name
       course_id = parse_course_id
-      date = get_course_date
+      date = parse_course_date
       url = parse_course_url
       info = {}
 
@@ -90,24 +106,5 @@ module KiwiScraper
       end
       info
     end
-
-    def get_course_date
-      #date type yyyy-mm-dd - yyyy-mm-dd
-      date = []
-      @document.xpath("//p[@id='courseDate']").each do |course|
-        longdate = course.text
-        date << longdate.split("：")[1]
-      end
-      date
-    end
-
-    def parse_course_id
-      course_id = []
-      @document.xpath("//div[@class='gb_mid']").each do |course|
-        course_id << course.children[4].children[0].children.text.split("：")[1]
-      end
-      course_id
-    end
-
   end
 end

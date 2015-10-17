@@ -4,7 +4,7 @@ require 'thor'
 require 'fuzzy_match'
 require 'launchy'
 require 'coursesdesc' # for production
-# require '../lib/coursesdesc/courses.rb' # for cmd line testing purposes
+require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
 
 class KiwiCLI < Thor
   desc 'search COURSENAME', 'Search a course on ShareCourse'
@@ -19,7 +19,7 @@ class KiwiCLI < Thor
   desc 'list', 'List all courses on ShareCourse'
   def list
     sc = KiwiScraper::ShareCourse.new
-    sc.courses_id_mapping.each do |key, info|
+    sc.courses_id_to_all_mapping.each do |key, info|
       puts "#{key} - #{info['name']}"
     end
   end
@@ -27,14 +27,14 @@ class KiwiCLI < Thor
   desc 'open ID', 'open the course page on browser with course id'
   def open(id)
     sc = KiwiScraper::ShareCourse.new
-    course = sc.courses_id_mapping[id]
+    course = sc.courses_id_to_all_mapping[id]
     Launchy.open(course['url'])
   end
 
   desc 'info ID', 'Display information about course.'
   def info(id)
     sc = KiwiScraper::ShareCourse.new
-    course = sc.courses_id_mapping[id]
+    course = sc.courses_id_to_all_mapping[id]
     puts "Course ID: #{course['id']}"
     puts "Course: #{course['name']}"
     puts "Course time: #{course['date']}"
