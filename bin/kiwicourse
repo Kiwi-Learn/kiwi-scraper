@@ -11,24 +11,34 @@ class KiwiCLI < Thor
   def search(coursename)
     sc = KiwiScraper::ShareCourse.new
     result = FuzzyMatch.new(sc.course_name).find(coursename)
-    puts result
+    input_key = Digest::SHA256.digest result
+    id = sc.courses_name_to_id_mapping[input_key]
+    puts "#{id} - #{result}"
   end
 
   desc 'list', 'List all courses on ShareCourse'
   def list
     sc = KiwiScraper::ShareCourse.new
-    sc.course_name.each do |ele_courses|
-      puts ele_courses
+    sc.courses_id_mapping.each do |key, info|
+      puts "#{key} - #{info['name']}"
     end
   end
 
-  desc 'open COURSENAME', 'open the course page on browser'
-  def open(coursename)
+  desc 'open ID', 'open the course page on browser with course id'
+  def open(id)
     sc = KiwiScraper::ShareCourse.new
-    # puts sc.courses_name_to_url_mapping
-    input_key = Digest::SHA256.digest coursename
-    course_url = sc.courses_name_to_url_mapping[input_key]
-    Launchy.open(course_url)
+    course = sc.courses_id_mapping[id]
+    Launchy.open(course['url'])
+  end
+
+  desc 'info ID', 'Display information about course.'
+  def info(id)
+    sc = KiwiScraper::ShareCourse.new
+    course = sc.courses_id_mapping[id]
+    puts "Course ID: #{course['id']}"
+    puts "Course: #{course['name']}"
+    puts "Course time: #{course['date']}"
+    puts "Course webpage#{course['url']}"
   end
 end
 
