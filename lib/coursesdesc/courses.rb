@@ -18,7 +18,9 @@ module KiwiScraper
     def course_name
       @course_name ||= parse_course_name
     end
-
+    def course_date
+      @course_date ||= get_course_date
+    end
     def course_url
       @course_url ||= parse_course_url
     end
@@ -65,5 +67,16 @@ module KiwiScraper
 
       result
     end
+
+    def get_course_date
+      #date type yyyy-mm-dd - yyyy-mm-dd
+      date = [] 
+      @document.xpath("//p[@id='courseDate']").each do |course|
+        longdate = course.text
+        date << longdate.split("：")[1]
+      end
+      date
+    end
+
   end
 end
