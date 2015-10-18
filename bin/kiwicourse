@@ -60,7 +60,7 @@ class KiwiCLI < Thor
     puts "Course ID: #{course['id']}"
     puts "Course: #{course['name']}"
     puts "Course time: #{course['date']}"
-    puts "Course webpage#{course['url']}"
+    puts "Course webpage: #{course['url']}"
   end
 
   desc 'update', 'Update the offline courses data'
