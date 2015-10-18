@@ -65,7 +65,7 @@ $ kiwicourse info CS06001
 Course ID: CS06001
 Course: 資料結構
 Course time: 2014-09-14 - 2015-02-28
-Course webpagehttp://www.sharecourse.net/sharecourse/course/view/courseInfo/28
+Course webpage: http://www.sharecourse.net/sharecourse/course/view/courseInfo/28
 ```
 
 Open the course webpage in browser
