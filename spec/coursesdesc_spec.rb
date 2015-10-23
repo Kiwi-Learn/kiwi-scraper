@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'vcr'
 require 'webmock/minitest'
-require './lib/coursesdesc.rb'
+require './lib/kiwicourse.rb'
 require './spec/courses_id_data.rb'
 require './spec/courses_name_data.rb'
 require './spec/courses_url_data.rb'
