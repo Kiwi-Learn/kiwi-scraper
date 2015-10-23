@@ -1,5 +1,5 @@
 # Versioning
 module CoursesDesc
-  VERSION = '0.4.2'
-  DATE = '2015-10-23'
+  VERSION = '0.5.0'
+  DATE = '2015-10-24'
 end
