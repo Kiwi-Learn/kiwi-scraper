@@ -3,9 +3,9 @@ require 'digest'
 require 'thor'
 require 'fuzzy_match'
 require 'launchy'
-# require 'kiwicourse' # for production
-require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
-require './lib/coursesdesc/offline.rb' # for cmd line testing purposes
+require 'kiwicourse' # for production
+# require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
+# require './lib/coursesdesc/offline.rb' # for cmd line testing purposes
 
 class KiwiCLI < Thor
   desc 'search COURSENAME', 'Search a course on ShareCourse'
