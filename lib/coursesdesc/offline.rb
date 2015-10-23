@@ -2,8 +2,8 @@ require_relative './courses.rb'
 
 DUMP_FILE_PATH = Dir.home + '/.kiwicourse.dump'
 
-module KiwiDumper
-  class Courses
+module KiwiScraper
+  class OfflineCourses
     def initialize
       if File.exist?(DUMP_FILE_PATH)
         @sc = Marshal.load(File.read(DUMP_FILE_PATH))
