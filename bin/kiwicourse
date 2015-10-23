@@ -3,7 +3,7 @@ require 'digest'
 require 'thor'
 require 'fuzzy_match'
 require 'launchy'
-require 'coursesdesc' # for production
+require 'kiwicourse' # for production
 # require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
 
 DUMP_FILE_PATH = Dir.home + '/.kiwicourse.dump'
