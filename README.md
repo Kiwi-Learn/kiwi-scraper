@@ -81,7 +81,7 @@ Already up to date.
 
 Use it from your Ruby code:
 ````ruby
-require 'coursesdesc'
+require 'kiwicourse'
 sc = KiwiScraper::ShareCourse.new
 
 course_found = sc.course_name
