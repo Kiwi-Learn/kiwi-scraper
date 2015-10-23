@@ -1,1 +1,1 @@
-require 'coursesdesc/kiwicourse.rb'
+require 'coursesdesc/courses.rb'
