@@ -3,14 +3,14 @@ require 'digest'
 require 'thor'
 require 'fuzzy_match'
 require 'launchy'
-require 'kiwicourse' # for production
-# require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
-# require './lib/coursesdesc/offline.rb' # for cmd line testing purposes
+# require 'kiwicourse' # for production
+require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
+require './lib/coursesdesc/offline.rb' # for cmd line testing purposes
 
 class KiwiCLI < Thor
   desc 'search COURSENAME', 'Search a course on ShareCourse'
   def search(coursename)
-    sc = KiwiDumper::Courses.new.get_instance
+    sc = KiwiScraper::OfflineCourses.new.get_instance
     result = FuzzyMatch.new(sc.course_name).find(coursename)
     input_key = Digest::SHA256.digest result
     id = sc.courses_name_to_id_mapping[input_key]
@@ -19,7 +19,7 @@ class KiwiCLI < Thor
 
   desc 'list', 'List all courses on ShareCourse'
   def list
-    sc = KiwiDumper::Courses.new.get_instance
+    sc = KiwiScraper::OfflineCourses.new.get_instance
     sc.courses_id_to_all_mapping.each do |key, info|
       puts "#{key} - #{info['name']}"
     end
@@ -27,14 +27,14 @@ class KiwiCLI < Thor
 
   desc 'open ID', 'Open the course page on browser with course id'
   def open(id)
-    sc = KiwiDumper::Courses.new.get_instance
+    sc = KiwiScraper::OfflineCourses.new.get_instance
     course = sc.courses_id_to_all_mapping[id]
     Launchy.open(course['url'])
   end
 
   desc 'info ID', 'Display information about course.'
   def info(id)
-    sc = KiwiDumper::Courses.new.get_instance
+    sc = KiwiScraper::OfflineCourses.new.get_instance
     course = sc.courses_id_to_all_mapping[id]
     puts "Course ID: #{course['id']}"
     puts "Course: #{course['name']}"
