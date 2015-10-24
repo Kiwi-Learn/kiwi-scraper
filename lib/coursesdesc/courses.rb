@@ -2,6 +2,7 @@ require 'oga'
 require 'open-uri'
 require 'digest'
 require 'pp'
+require 'fuzzy_match'
 
 module KiwiScraper
   # parse course description from sharecourse web
@@ -36,7 +37,18 @@ module KiwiScraper
       @course_id_map ||= map_course_id_to_all
     end
 
+    def search_courses(keyword)
+      @found_cource ||= do_search_course(keyword)
+    end
+
     private
+ 
+    def do_search_course(keyword)
+      result = FuzzyMatch.new(course_name).find(keyword)
+      input_key = Digest::SHA256.digest result
+      id = courses_name_to_id_mapping[input_key]
+      courses_id_to_all_mapping[id]
+    end
 
     def parse_html
       @document = Oga.parse_html(open(URL))

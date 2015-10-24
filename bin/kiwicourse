@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 require 'digest'
 require 'thor'
-require 'fuzzy_match'
 require 'launchy'
 require 'kiwicourse' # for production
 # require './lib/coursesdesc/courses.rb' # for cmd line testing purposes
@@ -11,10 +10,9 @@ class KiwiCLI < Thor
   desc 'search COURSENAME', 'Search a course on ShareCourse'
   def search(coursename)
     sc = KiwiScraper::OfflineCourses.new.get_instance
-    result = FuzzyMatch.new(sc.course_name).find(coursename)
-    input_key = Digest::SHA256.digest result
-    id = sc.courses_name_to_id_mapping[input_key]
-    puts "#{id} - #{result}"
+    id = sc.search_courses(coursename)['id']
+    name = sc.search_courses(coursename)['name']
+    puts "#{id} - #{name}"
   end
 
   desc 'list', 'List all courses on ShareCourse'
